@@ -2,3 +2,7 @@
 
 it's a sample project, in project used: rxjava2, dagger2, cicerone, mvp
 
+<details>
+  <summary></summary>
+  
+</details>
