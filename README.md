@@ -2,4 +2,4 @@
 
 it's a sample project, in project used: rxjava2, dagger2, cicerone, mvp
 
-articles get from newsapi.org 
+articles taken from newsapi.org 
