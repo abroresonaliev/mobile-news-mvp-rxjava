@@ -1,4 +1,4 @@
 include ':domain'
 include ':data'
 include ':app'
-rootProject.name = "Mobile News"
+rootProject.name = "Mobile News MVP RxJava"
