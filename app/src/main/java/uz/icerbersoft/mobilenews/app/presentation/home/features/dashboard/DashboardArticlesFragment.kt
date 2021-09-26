@@ -50,7 +50,7 @@ internal class DashboardArticlesFragment :
     private val topLoadingController = StateLoadingItemController(true)
     private val topEmptyController = StateEmptyItemController(true)
     private val topErrorController =
-        StateErrorItemController(true) { presenter.getBreakingArticles() }
+        StateErrorItemController(true) { presenter.getTopArticles() }
 
     override fun getComponent(): DashboardArticlesDaggerComponent =
         DashboardArticlesDaggerComponent.create(XInjectionManager.findComponent())
