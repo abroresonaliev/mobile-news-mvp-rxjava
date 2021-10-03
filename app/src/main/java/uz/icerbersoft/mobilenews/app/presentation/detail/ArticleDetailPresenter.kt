@@ -22,14 +22,12 @@ class ArticleDetailPresenter @Inject constructor(
         currentArticleId = value
     }
 
-    override fun onFirstViewAttach() {
+    override fun onFirstViewAttach() =
         getArticleDetail()
-    }
 
     fun getArticleDetail() {
         presenterScope.launch {
-            interactor
-                .getArticle(currentArticleId)
+            interactor.getArticle(currentArticleId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableObserver<Article>() {
                     override fun onNext(value: Article) =
@@ -43,8 +41,6 @@ class ArticleDetailPresenter @Inject constructor(
         }
     }
 
-    fun back() = router.back()
-
     fun updateBookmark(article: Article) {
         presenterScope.launch {
             interactor
@@ -53,4 +49,6 @@ class ArticleDetailPresenter @Inject constructor(
                 .subscribe()
         }
     }
+
+    fun back() = router.back()
 }

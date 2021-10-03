@@ -6,10 +6,9 @@ plugins {
 
 android {
     compileSdkVersion 29
-//    buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "uz.icebergsoft.mobilenews.app"
+        applicationId "uz.icebergsoft.mobilenews.app.mvp_rxjava"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1

@@ -11,7 +11,7 @@ import uz.icerbersoft.mobilenews.domain.interactor.article.detail.model.ArticleW
 internal class BreakingArticleItemController(
     private val itemClickListener: (product: Article) -> Unit,
     private val bookmarkListener: (Article) -> Unit
-) : BindableItemController<ArticleItem, BreakingArticleItemController.Holder>(){
+) : BindableItemController<ArticleItem, BreakingArticleItemController.Holder>() {
 
     override fun createViewHolder(parent: ViewGroup): Holder = Holder(parent)
 
@@ -24,13 +24,9 @@ internal class BreakingArticleItemController(
         private val binding = ViewHolderRecommendedArticleBinding.bind(itemView)
 
         init {
-            with(binding){
+            with(binding) {
                 itemParent.setOnClickListener { itemClickListener.invoke(article) }
-                bookmarkImageView.apply {
-//                    if (article.isBookmarked) setImageResource(R.drawable.drawable_bookmark)
-//                    else setImageResource(R.drawable.drawable_bookmark_border)
-                    setOnClickListener { bookmarkListener.invoke(article) }
-                }
+                bookmarkImageView.setOnClickListener { bookmarkListener.invoke(article) }
             }
         }
 
@@ -41,15 +37,15 @@ internal class BreakingArticleItemController(
                 sourceTextView.text = data.article.source.name
                 publishedAtTextView.text = data.article.publishedAt
                 imageSimpleImageView.setImageURI(data.article.imageUrl)
-                bookmarkImageView.apply {
-                    if (data.article.isBookmarked) setImageResource(R.drawable.drawable_bookmark)
-                    else setImageResource(R.drawable.drawable_bookmark_border)
+                with(bookmarkImageView) {
+                    if (data.article.isBookmarked) setImageResource(R.drawable.ic_bookmark)
+                    else setImageResource(R.drawable.ic_bookmark_border)
                 }
             }
         }
     }
 
     private companion object {
-        const val ID_TAG = "ArticleItemController"
+        const val ID_TAG = "BreakingArticleItemController"
     }
 }

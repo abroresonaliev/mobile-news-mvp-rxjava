@@ -25,6 +25,6 @@
         app:itemTextColor="@color/color_state_bottom_navigation"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/menu_main_screen_navigation_bar" />
+        app:menu="@menu/menu_home_bottom_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
