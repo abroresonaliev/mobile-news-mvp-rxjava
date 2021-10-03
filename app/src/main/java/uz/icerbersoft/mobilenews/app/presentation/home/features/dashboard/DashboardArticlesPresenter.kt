@@ -7,7 +7,6 @@ import moxy.presenterScope
 import uz.icerbersoft.mobilenews.app.global.router.GlobalRouter
 import uz.icerbersoft.mobilenews.data.model.article.Article
 import uz.icerbersoft.mobilenews.data.model.article.ArticleListWrapper
-import uz.icerbersoft.mobilenews.domain.interactor.article.detail.model.ArticleWrapper
 import uz.icerbersoft.mobilenews.domain.interactor.article.detail.model.ArticleWrapper.*
 import uz.icerbersoft.mobilenews.domain.interactor.article.list.ArticleListInteractor
 import javax.inject.Inject
