@@ -10,8 +10,6 @@ import moxy.ktx.moxyPresenter
 import uz.icerbersoft.mobilenews.app.R
 import uz.icerbersoft.mobilenews.app.databinding.FragmentArticleDetailBinding
 import uz.icerbersoft.mobilenews.app.presentation.detail.di.ArticleDetailDaggerComponent
-import uz.icerbersoft.mobilenews.app.support.cicerone.utils.getNonNullBundleArgument
-import uz.icerbersoft.mobilenews.app.support.cicerone.utils.withArguments
 import uz.icerbersoft.mobilenews.app.utils.addCallback
 import uz.icerbersoft.mobilenews.data.model.article.Article
 import javax.inject.Inject
@@ -22,7 +20,7 @@ internal class ArticleDetailFragment : MvpAppCompatFragment(R.layout.fragment_ar
     @Inject
     lateinit var lazyPresenter: Lazy<ArticleDetailPresenter>
     private val presenter by moxyPresenter {
-        lazyPresenter.get().apply { setArticleId(getNonNullBundleArgument(KEY_ARTICLE_ID)) }
+        lazyPresenter.get().apply { setArticleId(checkNotNull(arguments?.getLong(KEY_ARTICLE_ID))) }
     }
 
     private lateinit var binding: FragmentArticleDetailBinding
@@ -33,7 +31,7 @@ internal class ArticleDetailFragment : MvpAppCompatFragment(R.layout.fragment_ar
     override fun onCreate(savedInstanceState: Bundle?) {
         XInjectionManager.bindComponent(this).inject(this)
         super.onCreate(savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback (this) { presenter.back() }
+        requireActivity().onBackPressedDispatcher.addCallback(this) { presenter.back() }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,7 +54,8 @@ internal class ArticleDetailFragment : MvpAppCompatFragment(R.layout.fragment_ar
         private const val KEY_ARTICLE_ID: String = "key_article_id"
 
         fun newInstance(articleId: Long) =
-            ArticleDetailFragment()
-                .withArguments { putSerializable(KEY_ARTICLE_ID, articleId) }
+            ArticleDetailFragment().apply {
+                arguments = Bundle().apply { putLong(KEY_ARTICLE_ID, articleId) }
+            }
     }
 }
