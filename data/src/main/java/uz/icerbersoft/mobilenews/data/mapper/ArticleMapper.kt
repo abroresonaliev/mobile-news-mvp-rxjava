@@ -21,24 +21,9 @@ internal fun ArticleEntity.mapToArticle(): Article =
         isBookmarked = isBookmarked
     )
 
-internal fun Article.mapToArticleEntity(): ArticleEntity =
-    ArticleEntity(
-        articleId = 0L,
-        title = title,
-        description = description,
-        content = content,
-        author = author,
-        url = url,
-        imageUrl = imageUrl,
-        source = source.name,
-        sourceId = source.id,
-        publishedAt = publishedAt,
-        isBookmarked = false
-    )
-
 internal fun ArticleResponse.mapToArticleEntity(): ArticleEntity =
     ArticleEntity(
-        articleId = 0,
+        articleId = url.hashCode().toString(),
         author = author ?: "",
         content = content ?: "",
         description = description ?: "",

@@ -22,10 +22,10 @@ internal class DashboardArticlesPresenter @Inject constructor(
     }
 
     fun getBreakingArticles() {
-        viewState.onDefinedBreakingArticleWrappers(listOf(LoadingItem))
         presenterScope.launch {
             interactor
                 .getBreakingArticles()
+                .doOnSubscribe { viewState.onDefinedBreakingArticleWrappers(listOf(LoadingItem)) }
                 .subscribeWith(object : DisposableObserver<ArticleListWrapper>() {
                     override fun onNext(value: ArticleListWrapper) {
                         if (value.articles.isNotEmpty()) {
@@ -44,10 +44,10 @@ internal class DashboardArticlesPresenter @Inject constructor(
     }
 
     fun getTopArticles() {
-        viewState.onDefinedTopArticleWrappers(listOf(LoadingItem))
         presenterScope.launch {
             interactor
                 .getTopArticles()
+                .doOnSubscribe { viewState.onDefinedTopArticleWrappers(listOf(LoadingItem)) }
                 .subscribeWith(object : DisposableObserver<ArticleListWrapper>() {
                     override fun onNext(value: ArticleListWrapper) {
                         if (value.articles.isNotEmpty()) {
