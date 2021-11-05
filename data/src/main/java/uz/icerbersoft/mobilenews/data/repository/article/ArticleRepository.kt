@@ -7,7 +7,7 @@ import uz.icerbersoft.mobilenews.data.model.article.ArticleListWrapper
 
 interface ArticleRepository {
 
-    fun getArticle(articleId: Long): Observable<Article>
+    fun getArticle(articleId: String): Observable<Article>
 
     fun getArticles(): Observable<ArticleListWrapper>
 
@@ -19,5 +19,5 @@ interface ArticleRepository {
 
     fun getReadLaterArticles(): Observable<ArticleListWrapper>
 
-    fun updateBookmark(articleId: Long, isBookmarked: Boolean): Observable<Unit>
+    fun updateBookmark(articleId: String, isBookmarked: Boolean): Observable<Unit>
 }

@@ -12,7 +12,7 @@ class ArticleDetailInteractor @Inject constructor(
     private val articleRepository: ArticleRepository
 ) {
 
-    fun getArticle(articleId: Long): Observable<Article> {
+    fun getArticle(articleId: String): Observable<Article> {
         return articleRepository.getArticle(articleId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

@@ -1,5 +1,6 @@
 package uz.icerbersoft.mobilenews.data.repository.article
 
+import io.reactivex.Emitter
 import io.reactivex.Observable
 import kotlinx.coroutines.FlowPreview
 import uz.icerbersoft.mobilenews.data.datasource.database.dao.article.ArticleEntityDao
@@ -15,71 +16,103 @@ internal class ArticleRepositoryImpl(
     private val restService: RestService
 ) : ArticleRepository {
 
-    override fun getArticle(articleId: Long): Observable<Article> {
+    override fun getArticle(articleId: String): Observable<Article> {
         return articleEntityDao.getArticleEntityById(articleId).map { it.mapToArticle() }
     }
 
     @FlowPreview
     override fun getArticles(): Observable<ArticleListWrapper> {
         return restService.getBreakingArticles()
-            .doOnNext { it -> it.articles.forEach { articleEntityDao.upsert(it.mapToArticleEntity()) } }
-            .map { it.articles.isNotEmpty() }
+            .doOnNext { it ->
+                it.articles.forEach {
+                    articleEntityDao.updateArticle(it.mapToArticleEntity())
+                }
+            }
+            .map { it -> it.articles.map { it.url } }
             .doOnError {
-                if (it is ConnectException) Observable.just(false)
+                if (it is ConnectException) Observable.just(listOf<String>())
                 else throw it
             }
-            .flatMap { isLoaded ->
-                articleEntityDao.getArticleEntities()
+            .flatMap { postUrls ->
+                when {
+                    postUrls.isNotEmpty() ->
+                        articleEntityDao.getArticleEntitiesByUrl(postUrls.toTypedArray())
+                    else -> articleEntityDao.getArticleEntities()
+                }
                     .map { list -> list.map { it.mapToArticle() } }
-                    .map { ArticleListWrapper(it, !isLoaded) }
+                    .map { ArticleListWrapper(it, postUrls.isEmpty()) }
             }
     }
 
     @FlowPreview
     override fun getBreakingNewsArticles(): Observable<ArticleListWrapper> {
         return restService.getBreakingArticles()
-            .doOnNext { it -> it.articles.forEach { articleEntityDao.upsert(it.mapToArticleEntity()) } }
-            .map { it.articles.isNotEmpty() }
+            .doOnNext { it ->
+                it.articles.forEach {
+                    articleEntityDao.updateArticle(it.mapToArticleEntity())
+                }
+            }
+            .map { it -> it.articles.map { it.url } }
             .doOnError {
-                if (it is ConnectException) Observable.just(false)
+                if (it is ConnectException) Observable.just(listOf<String>())
                 else throw it
             }
-            .flatMap { isLoaded ->
-                articleEntityDao.getArticleEntities()
+            .flatMap { postUrls ->
+                when {
+                    postUrls.isNotEmpty() ->
+                        articleEntityDao.getArticleEntitiesByUrl(postUrls.toTypedArray())
+                    else -> articleEntityDao.getArticleEntities()
+                }
                     .map { list -> list.map { it.mapToArticle() } }
-                    .map { ArticleListWrapper(it, !isLoaded) }
+                    .map { ArticleListWrapper(it, postUrls.isEmpty()) }
             }
     }
 
     @FlowPreview
     override fun getTopArticles(): Observable<ArticleListWrapper> {
         return restService.getTopArticles()
-            .doOnNext { it -> it.articles.forEach { articleEntityDao.upsert(it.mapToArticleEntity()) } }
-            .map { it.articles.isNotEmpty() }
+            .doOnNext { it ->
+                it.articles.forEach {
+                    articleEntityDao.updateArticle(it.mapToArticleEntity())
+                }
+            }
+            .map { it -> it.articles.map { it.url } }
             .doOnError {
-                if (it is ConnectException) Observable.just(false)
+                if (it is ConnectException) Observable.just(listOf<String>())
                 else throw it
             }
-            .flatMap { isLoaded ->
-                articleEntityDao.getArticleEntities()
+            .flatMap { postUrls ->
+                when {
+                    postUrls.isNotEmpty() ->
+                        articleEntityDao.getArticleEntitiesByUrl(postUrls.toTypedArray())
+                    else -> articleEntityDao.getArticleEntities()
+                }
                     .map { list -> list.map { it.mapToArticle() } }
-                    .map { ArticleListWrapper(it, !isLoaded) }
+                    .map { ArticleListWrapper(it, postUrls.isEmpty()) }
             }
     }
 
     @FlowPreview
     override fun getRecommendedArticles(): Observable<ArticleListWrapper> {
         return restService.getRecommendedArticles()
-            .doOnNext { it -> it.articles.forEach { articleEntityDao.upsert(it.mapToArticleEntity()) } }
-            .map { it.articles.isNotEmpty() }
+            .doOnNext { it ->
+                it.articles.forEach {
+                    articleEntityDao.updateArticle(it.mapToArticleEntity())
+                }
+            }
+            .map { it -> it.articles.map { it.url } }
             .doOnError {
-                if (it is ConnectException) Observable.just(false)
+                if (it is ConnectException) Observable.just(listOf<String>())
                 else throw it
             }
-            .flatMap { isLoaded ->
-                articleEntityDao.getArticleEntities()
+            .flatMap { postUrls ->
+                when {
+                    postUrls.isNotEmpty() ->
+                        articleEntityDao.getArticleEntitiesByUrl(postUrls.toTypedArray())
+                    else -> articleEntityDao.getArticleEntities()
+                }
                     .map { list -> list.map { it.mapToArticle() } }
-                    .map { ArticleListWrapper(it, !isLoaded) }
+                    .map { ArticleListWrapper(it, postUrls.isEmpty()) }
             }
     }
 
@@ -90,7 +123,7 @@ internal class ArticleRepositoryImpl(
             .map { ArticleListWrapper(it, true) }
     }
 
-    override fun updateBookmark(articleId: Long, isBookmarked: Boolean): Observable<Unit> {
+    override fun updateBookmark(articleId: String, isBookmarked: Boolean): Observable<Unit> {
         return Observable.create { articleEntityDao.updateBookmark(articleId, isBookmarked) }
     }
 }
