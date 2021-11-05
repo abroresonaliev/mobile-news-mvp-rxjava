@@ -9,10 +9,10 @@ import uz.icerbersoft.mobilenews.data.model.article.ArticleEntity
 @Dao
 internal abstract class ArticleEntityDao : BaseDao<ArticleEntity>() {
 
-    @Query("SELECT * FROM articles LIMIT 20")
+    @Query("SELECT * FROM articles ORDER BY article_article_id DESC LIMIT 20")
     abstract fun getArticleEntities(): Observable<List<ArticleEntity>>
 
-    @Query("SELECT * FROM articles WHERE article_is_bookmarked = :isBookmarked LIMIT 20")
+    @Query("SELECT * FROM articles WHERE article_is_bookmarked = :isBookmarked ORDER BY article_article_id DESC LIMIT 20")
     abstract fun getArticleEntitiesByBookmark(isBookmarked: Boolean): Observable<List<ArticleEntity>>
 
     @Query("SELECT * FROM articles WHERE article_article_id = :id")

@@ -23,10 +23,10 @@ internal class RecommendedArticlesPresenter @Inject constructor(
         getRecommendedArticles()
 
     fun getRecommendedArticles() {
-        viewState.onSuccessArticles(listOf(LoadingItem))
         presenterScope.launch {
             interactor
                 .getRecommendedArticles()
+                .doOnSubscribe { viewState.onSuccessArticles(listOf(LoadingItem)) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableObserver<ArticleListWrapper>() {
                     override fun onNext(value: ArticleListWrapper) {

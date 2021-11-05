@@ -23,9 +23,10 @@ internal class ReadLaterArticlesPresenter @Inject constructor(
         getReadLaterArticles()
 
     fun getReadLaterArticles() {
-        viewState.onSuccessArticles(listOf(LoadingItem))
         presenterScope.launch {
-            interactor.getReadLaterArticles()
+            interactor
+                .getReadLaterArticles()
+                .doOnSubscribe { viewState.onSuccessArticles(listOf(LoadingItem)) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableObserver<ArticleListWrapper>() {
                     override fun onNext(value: ArticleListWrapper) {
