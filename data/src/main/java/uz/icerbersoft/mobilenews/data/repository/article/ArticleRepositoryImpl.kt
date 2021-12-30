@@ -1,6 +1,5 @@
 package uz.icerbersoft.mobilenews.data.repository.article
 
-import io.reactivex.Emitter
 import io.reactivex.Observable
 import kotlinx.coroutines.FlowPreview
 import uz.icerbersoft.mobilenews.data.datasource.database.dao.article.ArticleEntityDao
@@ -8,7 +7,7 @@ import uz.icerbersoft.mobilenews.data.datasource.rest.service.RestService
 import uz.icerbersoft.mobilenews.data.mapper.mapToArticle
 import uz.icerbersoft.mobilenews.data.mapper.mapToArticleEntity
 import uz.icerbersoft.mobilenews.data.model.article.Article
-import uz.icerbersoft.mobilenews.data.model.article.ArticleListWrapper
+import uz.icerbersoft.mobilenews.data.model.article.wrapper.ArticleListWrapper
 import java.net.ConnectException
 
 internal class ArticleRepositoryImpl(

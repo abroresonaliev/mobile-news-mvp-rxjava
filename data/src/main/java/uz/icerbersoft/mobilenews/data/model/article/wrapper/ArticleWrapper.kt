@@ -1,4 +1,4 @@
-package uz.icerbersoft.mobilenews.domain.interactor.article.detail.model
+package uz.icerbersoft.mobilenews.data.model.article.wrapper
 
 import uz.icerbersoft.mobilenews.data.model.article.Article
 

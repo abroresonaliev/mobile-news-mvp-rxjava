@@ -18,7 +18,7 @@ import uz.icerbersoft.mobilenews.app.support.controller.StateEmptyItemController
 import uz.icerbersoft.mobilenews.app.support.controller.StateErrorItemController
 import uz.icerbersoft.mobilenews.app.support.controller.StateLoadingItemController
 import uz.icerbersoft.mobilenews.app.utils.addCallback
-import uz.icerbersoft.mobilenews.domain.interactor.article.detail.model.ArticleWrapper
+import uz.icerbersoft.mobilenews.data.model.article.wrapper.ArticleWrapper
 import javax.inject.Inject
 
 internal class DashboardArticlesFragment :
