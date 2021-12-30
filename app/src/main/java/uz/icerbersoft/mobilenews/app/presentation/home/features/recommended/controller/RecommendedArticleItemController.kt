@@ -6,7 +6,7 @@ import ru.surfstudio.android.easyadapter.holder.BindableViewHolder
 import uz.icerbersoft.mobilenews.app.R
 import uz.icerbersoft.mobilenews.app.databinding.ViewHolderRecommendedArticleBinding
 import uz.icerbersoft.mobilenews.data.model.article.Article
-import uz.icerbersoft.mobilenews.domain.interactor.article.detail.model.ArticleWrapper.ArticleItem
+import uz.icerbersoft.mobilenews.data.model.article.wrapper.ArticleWrapper.ArticleItem
 
 internal class RecommendedArticleItemController(
     private val itemClickListener: (product: Article) -> Unit,

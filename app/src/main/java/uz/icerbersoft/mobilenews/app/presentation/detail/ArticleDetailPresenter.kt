@@ -1,18 +1,17 @@
 package uz.icerbersoft.mobilenews.app.presentation.detail
 
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import kotlinx.coroutines.launch
 import moxy.MvpPresenter
 import moxy.presenterScope
 import uz.icerbersoft.mobilenews.app.presentation.detail.router.ArticleDetailRouter
 import uz.icerbersoft.mobilenews.data.model.article.Article
-import uz.icerbersoft.mobilenews.domain.interactor.article.detail.ArticleDetailInteractor
+import uz.icerbersoft.mobilenews.domain.usecase.article.detail.ArticleDetailUseCase
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
 class ArticleDetailPresenter @Inject constructor(
-    private val interactor: ArticleDetailInteractor,
+    private val useCase: ArticleDetailUseCase,
     private val router: ArticleDetailRouter
 ) : MvpPresenter<ArticleDetailView>() {
 
@@ -27,8 +26,7 @@ class ArticleDetailPresenter @Inject constructor(
 
     fun getArticleDetail() {
         presenterScope.launch {
-            interactor.getArticle(currentArticleId)
-                .observeOn(AndroidSchedulers.mainThread())
+            useCase.getArticle(currentArticleId)
                 .subscribeWith(object : DisposableObserver<Article>() {
                     override fun onNext(value: Article) =
                         viewState.onSuccessArticleDetail(value)
@@ -43,9 +41,8 @@ class ArticleDetailPresenter @Inject constructor(
 
     fun updateBookmark(article: Article) {
         presenterScope.launch {
-            interactor
+            useCase
                 .updateBookmark(article)
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()
         }
     }

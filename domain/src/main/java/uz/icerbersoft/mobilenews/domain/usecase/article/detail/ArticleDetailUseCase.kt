@@ -1,15 +1,16 @@
-package uz.icerbersoft.mobilenews.domain.interactor.article.detail
+package uz.icerbersoft.mobilenews.domain.usecase.article.detail
 
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import uz.icerbersoft.mobilenews.data.model.article.Article
 import uz.icerbersoft.mobilenews.data.repository.article.ArticleRepository
+import uz.icerbersoft.mobilenews.domain.usecase.common.bookmark.BookmarkUseCase
 import javax.inject.Inject
 
-@Suppress("EXPERIMENTAL_API_USAGE")
-class ArticleDetailInteractor @Inject constructor(
-    private val articleRepository: ArticleRepository
+class ArticleDetailUseCase @Inject constructor(
+    private val articleRepository: ArticleRepository,
+    private val bookmarkUseCase: BookmarkUseCase
 ) {
 
     fun getArticle(articleId: String): Observable<Article> {
@@ -19,8 +20,6 @@ class ArticleDetailInteractor @Inject constructor(
     }
 
     fun updateBookmark(article: Article): Observable<Unit> {
-        return articleRepository.updateBookmark(article.articleId, !article.isBookmarked)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+        return bookmarkUseCase.updateBookmark(article)
     }
 }

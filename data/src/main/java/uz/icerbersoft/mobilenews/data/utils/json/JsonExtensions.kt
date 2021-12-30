@@ -2,7 +2,6 @@ package uz.icerbersoft.mobilenews.data.utils.json
 
 import kotlinx.serialization.json.Json
 
-@Suppress("EXPERIMENTAL_API_USAGE")
 val Json.Default.actual: Json
     get() = lazyJson
 
