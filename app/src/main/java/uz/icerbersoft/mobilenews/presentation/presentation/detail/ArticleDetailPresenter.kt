@@ -1,19 +1,16 @@
 package uz.icerbersoft.mobilenews.presentation.presentation.detail
 
-import io.reactivex.observers.DisposableObserver
-import kotlinx.coroutines.launch
-import moxy.MvpPresenter
-import moxy.presenterScope
-import uz.icerbersoft.mobilenews.presentation.presentation.detail.router.ArticleDetailRouter
-import uz.icerbersoft.mobilenews.domain.data.model.article.Article
+import uz.icerbersoft.mobilenews.domain.data.entity.article.Article
 import uz.icerbersoft.mobilenews.domain.usecase.article.detail.ArticleDetailUseCase
+import uz.icerbersoft.mobilenews.presentation.presentation.detail.router.ArticleDetailRouter
+import uz.icerbersoft.mobilenews.presentation.support.moxy.BaseMoxyPresenter
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
 class ArticleDetailPresenter @Inject constructor(
     private val useCase: ArticleDetailUseCase,
     private val router: ArticleDetailRouter
-) : MvpPresenter<ArticleDetailView>() {
+) : BaseMoxyPresenter<ArticleDetailView>() {
 
     private var currentArticleId: String by Delegates.notNull()
 
@@ -25,26 +22,21 @@ class ArticleDetailPresenter @Inject constructor(
         getArticleDetail()
 
     fun getArticleDetail() {
-        presenterScope.launch {
-            useCase.getArticle(currentArticleId)
-                .subscribeWith(object : DisposableObserver<Article>() {
-                    override fun onNext(value: Article) =
-                        viewState.onSuccessArticleDetail(value)
+        val disposable = useCase.getArticle(currentArticleId)
+            .doOnSubscribe { }
+            .subscribe(
+                { viewState.onSuccessArticleDetail(it) },
+                { /*viewState.onFailureArticleDetail(throwable)*/ }
+            )
 
-                    override fun onError(throwable: Throwable) {}
-//                        viewState.onFailureArticleDetail(throwable)
-
-                    override fun onComplete() {}
-                })
-        }
+        compositeDisposable.add(disposable)
     }
 
     fun updateBookmark(article: Article) {
-        presenterScope.launch {
-            useCase
-                .updateBookmark(article)
-                .subscribe()
-        }
+        val disposable = useCase.updateBookmark(article)
+            .subscribe()
+
+        compositeDisposable.add(disposable)
     }
 
     fun back() = router.back()

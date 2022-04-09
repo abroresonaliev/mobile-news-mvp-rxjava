@@ -9,7 +9,7 @@ import ru.surfstudio.android.easyadapter.EasyAdapter
 import ru.surfstudio.android.easyadapter.ItemList
 import uz.icerbersoft.mobilenews.R
 import uz.icerbersoft.mobilenews.databinding.FragmentRecommendedArticlesBinding
-import uz.icerbersoft.mobilenews.domain.data.model.article.ArticleWrapper
+import uz.icerbersoft.mobilenews.domain.data.entity.article.ArticleWrapper
 import uz.icerbersoft.mobilenews.presentation.global.GlobalActivity
 import uz.icerbersoft.mobilenews.presentation.presentation.home.features.recommended.controller.RecommendedArticleItemController
 import uz.icerbersoft.mobilenews.presentation.support.controller.StateEmptyItemController
@@ -54,6 +54,12 @@ internal class RecommendedArticlesFragment :
             recyclerView.adapter = easyAdapter
             recyclerView.itemAnimator = null
         }
+    }
+
+    override fun onDestroy() {
+        presenter.clearPresenter()
+
+        super.onDestroy()
     }
 
     override fun onSuccessArticles(articles: List<ArticleWrapper>) {

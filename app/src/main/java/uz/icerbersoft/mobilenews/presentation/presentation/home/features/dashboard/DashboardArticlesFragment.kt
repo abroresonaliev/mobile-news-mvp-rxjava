@@ -10,7 +10,7 @@ import ru.surfstudio.android.easyadapter.ItemList
 import uz.icerbersoft.mobilenews.R
 import uz.icerbersoft.mobilenews.data.utils.date.toFormattedDate
 import uz.icerbersoft.mobilenews.databinding.FragmentDashboardArticlesBinding
-import uz.icerbersoft.mobilenews.domain.data.model.article.ArticleWrapper
+import uz.icerbersoft.mobilenews.domain.data.entity.article.ArticleWrapper
 import uz.icerbersoft.mobilenews.presentation.global.GlobalActivity
 import uz.icerbersoft.mobilenews.presentation.presentation.home.features.dashboard.controller.BreakingArticleItemController
 import uz.icerbersoft.mobilenews.presentation.presentation.home.features.dashboard.controller.TopArticleItemController
@@ -72,6 +72,12 @@ internal class DashboardArticlesFragment :
             topArticleRv.adapter = topArticlesAdapter
             topArticleRv.itemAnimator = null
         }
+    }
+
+    override fun onDestroy() {
+        presenter.clearPresenter()
+
+        super.onDestroy()
     }
 
     override fun onDefinedBreakingArticleWrappers(articles: List<ArticleWrapper>) {

@@ -1,14 +1,13 @@
 package uz.icerbersoft.mobilenews.data.repository.article
 
 import io.reactivex.Observable
-import kotlinx.coroutines.FlowPreview
 import uz.icerbersoft.mobilenews.data.datasource.database.dao.article.ArticleEntityDao
 import uz.icerbersoft.mobilenews.data.datasource.rest.service.ArticleRestService
 import uz.icerbersoft.mobilenews.data.mapper.mapToArticle
 import uz.icerbersoft.mobilenews.data.mapper.mapToArticleEntity
-import uz.icerbersoft.mobilenews.domain.data.model.article.Article
-import uz.icerbersoft.mobilenews.domain.data.model.article.ArticleListWrapper
-import uz.icerbersoft.mobilenews.domain.data.repository.ArticleRepository
+import uz.icerbersoft.mobilenews.domain.data.entity.article.Article
+import uz.icerbersoft.mobilenews.domain.data.entity.article.ArticleListWrapper
+import uz.icerbersoft.mobilenews.domain.data.repository.article.ArticleRepository
 import java.net.ConnectException
 import javax.inject.Inject
 
@@ -21,7 +20,6 @@ internal class ArticleRepositoryImpl @Inject constructor(
         return articleEntityDao.getArticleEntityById(articleId).map { it.mapToArticle() }
     }
 
-    @FlowPreview
     override fun getArticles(): Observable<ArticleListWrapper> {
         return articleRestService.getBreakingArticles()
             .doOnNext { it ->
@@ -45,7 +43,6 @@ internal class ArticleRepositoryImpl @Inject constructor(
             }
     }
 
-    @FlowPreview
     override fun getBreakingNewsArticles(): Observable<ArticleListWrapper> {
         return articleRestService.getBreakingArticles()
             .doOnNext { it ->
@@ -69,7 +66,6 @@ internal class ArticleRepositoryImpl @Inject constructor(
             }
     }
 
-    @FlowPreview
     override fun getTopArticles(): Observable<ArticleListWrapper> {
         return articleRestService.getTopArticles()
             .doOnNext { it ->
@@ -93,7 +89,6 @@ internal class ArticleRepositoryImpl @Inject constructor(
             }
     }
 
-    @FlowPreview
     override fun getRecommendedArticles(): Observable<ArticleListWrapper> {
         return articleRestService.getRecommendedArticles()
             .doOnNext { it ->
@@ -117,7 +112,6 @@ internal class ArticleRepositoryImpl @Inject constructor(
             }
     }
 
-    @FlowPreview
     override fun getReadLaterArticles(): Observable<ArticleListWrapper> {
         return articleEntityDao.getArticleEntitiesByBookmark(true)
             .map { list -> list.map { it.mapToArticle() } }

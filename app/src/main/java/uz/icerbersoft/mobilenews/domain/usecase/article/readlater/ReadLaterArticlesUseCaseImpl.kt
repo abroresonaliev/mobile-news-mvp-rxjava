@@ -3,10 +3,10 @@ package uz.icerbersoft.mobilenews.domain.usecase.article.readlater
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import uz.icerbersoft.mobilenews.domain.data.model.article.Article
-import uz.icerbersoft.mobilenews.domain.data.model.article.ArticleListWrapper
-import uz.icerbersoft.mobilenews.domain.data.repository.ArticleRepository
-import uz.icerbersoft.mobilenews.domain.usecase.common.bookmark.BookmarkUseCase
+import uz.icerbersoft.mobilenews.domain.data.entity.article.Article
+import uz.icerbersoft.mobilenews.domain.data.entity.article.ArticleListWrapper
+import uz.icerbersoft.mobilenews.domain.data.repository.article.ArticleRepository
+import uz.icerbersoft.mobilenews.domain.usecase.bookmark.BookmarkUseCase
 import javax.inject.Inject
 
 class ReadLaterArticlesUseCaseImpl @Inject constructor(

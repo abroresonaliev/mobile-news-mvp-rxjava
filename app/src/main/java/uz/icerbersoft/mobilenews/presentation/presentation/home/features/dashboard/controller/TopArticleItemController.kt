@@ -5,8 +5,8 @@ import ru.surfstudio.android.easyadapter.controller.BindableItemController
 import ru.surfstudio.android.easyadapter.holder.BindableViewHolder
 import uz.icerbersoft.mobilenews.R
 import uz.icerbersoft.mobilenews.databinding.ViewHolderTopArticleBinding
-import uz.icerbersoft.mobilenews.domain.data.model.article.Article
-import uz.icerbersoft.mobilenews.domain.data.model.article.ArticleWrapper.ArticleItem
+import uz.icerbersoft.mobilenews.domain.data.entity.article.Article
+import uz.icerbersoft.mobilenews.domain.data.entity.article.ArticleWrapper.ArticleItem
 
 internal class TopArticleItemController(
     private val itemClickListener: (product: Article) -> Unit,

@@ -3,7 +3,7 @@ package uz.icerbersoft.mobilenews.data.datasource.rest.service
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
-import uz.icerbersoft.mobilenews.domain.data.model.article.ArticleListResponse
+import uz.icerbersoft.mobilenews.domain.data.entity.article.ArticleListResponse
 
 internal interface ArticleRestService {
 

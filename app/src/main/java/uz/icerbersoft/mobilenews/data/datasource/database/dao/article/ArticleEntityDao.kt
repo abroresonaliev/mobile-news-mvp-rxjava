@@ -2,7 +2,7 @@ package uz.icerbersoft.mobilenews.data.datasource.database.dao.article
 
 import androidx.room.*
 import io.reactivex.Observable
-import uz.icerbersoft.mobilenews.domain.data.model.article.ArticleEntity
+import uz.icerbersoft.mobilenews.domain.data.entity.article.ArticleEntity
 
 @Dao
 internal abstract class ArticleEntityDao {

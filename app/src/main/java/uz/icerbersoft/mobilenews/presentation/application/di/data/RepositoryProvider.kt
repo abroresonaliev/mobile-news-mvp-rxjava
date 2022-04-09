@@ -1,6 +1,6 @@
 package uz.icerbersoft.mobilenews.presentation.application.di.data
 
-import uz.icerbersoft.mobilenews.domain.data.repository.ArticleRepository
+import uz.icerbersoft.mobilenews.domain.data.repository.article.ArticleRepository
 
 interface RepositoryProvider {
 
