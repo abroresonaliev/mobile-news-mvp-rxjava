@@ -1,8 +1,8 @@
 package uz.icerbersoft.mobilenews.domain.usecase.article.readlater
 
 import io.reactivex.Observable
-import uz.icerbersoft.mobilenews.domain.data.model.article.Article
-import uz.icerbersoft.mobilenews.domain.data.model.article.ArticleListWrapper
+import uz.icerbersoft.mobilenews.domain.data.entity.article.Article
+import uz.icerbersoft.mobilenews.domain.data.entity.article.ArticleListWrapper
 
 interface ReadLaterArticlesUseCase {
 

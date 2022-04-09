@@ -3,7 +3,7 @@ package uz.icerbersoft.mobilenews.presentation.application.di.domain
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
-import uz.icerbersoft.mobilenews.domain.data.repository.ArticleRepository
+import uz.icerbersoft.mobilenews.domain.data.repository.article.ArticleRepository
 import uz.icerbersoft.mobilenews.domain.usecase.article.dashboard.DashboardArticlesUseCase
 import uz.icerbersoft.mobilenews.domain.usecase.article.dashboard.DashboardArticlesUseCaseImpl
 import uz.icerbersoft.mobilenews.domain.usecase.article.detail.ArticleDetailUseCase
@@ -12,8 +12,8 @@ import uz.icerbersoft.mobilenews.domain.usecase.article.readlater.ReadLaterArtic
 import uz.icerbersoft.mobilenews.domain.usecase.article.readlater.ReadLaterArticlesUseCaseImpl
 import uz.icerbersoft.mobilenews.domain.usecase.article.recommended.RecommendedArticlesUseCase
 import uz.icerbersoft.mobilenews.domain.usecase.article.recommended.RecommendedArticlesUseCaseImpl
-import uz.icerbersoft.mobilenews.domain.usecase.common.bookmark.BookmarkUseCase
-import uz.icerbersoft.mobilenews.domain.usecase.common.bookmark.BookmarkUseCaseImpl
+import uz.icerbersoft.mobilenews.domain.usecase.bookmark.BookmarkUseCase
+import uz.icerbersoft.mobilenews.domain.usecase.bookmark.BookmarkUseCaseImpl
 import javax.inject.Singleton
 
 @Module(

@@ -1,7 +1,7 @@
 package uz.icerbersoft.mobilenews.presentation.presentation.home.features.dashboard
 
 import moxy.MvpView
-import uz.icerbersoft.mobilenews.domain.data.model.article.ArticleWrapper
+import uz.icerbersoft.mobilenews.domain.data.entity.article.ArticleWrapper
 
 interface DashboardArticlesView : MvpView {
 

@@ -1,4 +1,4 @@
-package uz.icerbersoft.mobilenews.domain.data.model.source
+package uz.icerbersoft.mobilenews.domain.data.entity.source
 
 data class Source(
     val id: String?,

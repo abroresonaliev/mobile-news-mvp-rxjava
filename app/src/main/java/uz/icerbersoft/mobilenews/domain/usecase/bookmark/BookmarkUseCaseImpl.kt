@@ -1,10 +1,10 @@
-package uz.icerbersoft.mobilenews.domain.usecase.common.bookmark
+package uz.icerbersoft.mobilenews.domain.usecase.bookmark
 
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import uz.icerbersoft.mobilenews.domain.data.model.article.Article
-import uz.icerbersoft.mobilenews.domain.data.repository.ArticleRepository
+import uz.icerbersoft.mobilenews.domain.data.entity.article.Article
+import uz.icerbersoft.mobilenews.domain.data.repository.article.ArticleRepository
 
 class BookmarkUseCaseImpl(
     private val articleRepository: ArticleRepository

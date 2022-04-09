@@ -1,10 +1,10 @@
-package uz.icerbersoft.mobilenews.domain.data.model.article
+package uz.icerbersoft.mobilenews.domain.data.entity.article
 
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import uz.icerbersoft.mobilenews.data.datasource.rest.retrofit.converter.DateSerializer
-import uz.icerbersoft.mobilenews.domain.data.model.source.SourceResponse
+import uz.icerbersoft.mobilenews.domain.data.entity.source.SourceResponse
 import java.util.*
 
 @Serializable

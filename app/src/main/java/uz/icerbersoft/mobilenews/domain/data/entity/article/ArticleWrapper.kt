@@ -1,4 +1,4 @@
-package uz.icerbersoft.mobilenews.domain.data.model.article
+package uz.icerbersoft.mobilenews.domain.data.entity.article
 
 sealed class ArticleWrapper {
 

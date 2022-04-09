@@ -8,7 +8,7 @@ import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import uz.icerbersoft.mobilenews.R
 import uz.icerbersoft.mobilenews.databinding.FragmentArticleDetailBinding
-import uz.icerbersoft.mobilenews.domain.data.model.article.Article
+import uz.icerbersoft.mobilenews.domain.data.entity.article.Article
 import uz.icerbersoft.mobilenews.presentation.global.GlobalActivity
 
 import uz.icerbersoft.mobilenews.presentation.utils.addCallback
@@ -40,9 +40,15 @@ internal class ArticleDetailFragment : MvpAppCompatFragment(R.layout.fragment_ar
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentArticleDetailBinding.bind(view)
 
-        with(binding){
+        with(binding) {
             backIv.setOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed() }
         }
+    }
+
+    override fun onDestroy() {
+        presenter.clearPresenter()
+
+        super.onDestroy()
     }
 
     override fun onSuccessArticleDetail(article: Article) {

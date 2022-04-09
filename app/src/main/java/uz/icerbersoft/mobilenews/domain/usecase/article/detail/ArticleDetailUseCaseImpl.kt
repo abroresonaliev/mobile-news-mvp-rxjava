@@ -3,9 +3,9 @@ package uz.icerbersoft.mobilenews.domain.usecase.article.detail
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import uz.icerbersoft.mobilenews.domain.data.model.article.Article
-import uz.icerbersoft.mobilenews.domain.data.repository.ArticleRepository
-import uz.icerbersoft.mobilenews.domain.usecase.common.bookmark.BookmarkUseCase
+import uz.icerbersoft.mobilenews.domain.data.entity.article.Article
+import uz.icerbersoft.mobilenews.domain.data.repository.article.ArticleRepository
+import uz.icerbersoft.mobilenews.domain.usecase.bookmark.BookmarkUseCase
 import javax.inject.Inject
 
 class ArticleDetailUseCaseImpl @Inject constructor(
