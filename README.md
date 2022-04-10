@@ -1,6 +1,6 @@
 # mobile-news-mvp-rxjava
 
-it's a sample project, in project used: rxjava2, dagger2, cicerone, mvp
+it's a sample project, in project used: rxjava2, dagger2, EasyAdapter(surf studio), cicerone, mvp
 
 articles taken from https://newsapi.org/
 
