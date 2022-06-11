@@ -1,7 +1,3 @@
-# mobile-news-mvp-rxjava
-
-it's a sample project, in project used: rxjava2, dagger2, EasyAdapter(surf studio), cicerone, mvp
-
 # Mobile news is sample project
 
 In project used: [RxJava2](https://github.com/ReactiveX/RxJava), Room, [Dagger2](https://github.com/google/dagger), EasyAdapter([surf-studio](https://github.com/surfstudio/EasyAdapter)), Cicerone([terratok](https://github.com/terrakok/Cicerone)), moxy-mvp([arello-mobile](https://github.com/Arello-Mobile/Moxy))
