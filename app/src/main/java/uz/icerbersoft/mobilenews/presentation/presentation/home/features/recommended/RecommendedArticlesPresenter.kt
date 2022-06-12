@@ -1,10 +1,10 @@
 package uz.icerbersoft.mobilenews.presentation.presentation.home.features.recommended
 
 import uz.icerbersoft.mobilenews.domain.data.entity.article.Article
-import uz.icerbersoft.mobilenews.domain.data.entity.article.ArticleWrapper.*
 import uz.icerbersoft.mobilenews.domain.usecase.article.recommended.RecommendedArticlesUseCase
 import uz.icerbersoft.mobilenews.presentation.global.router.GlobalRouter
 import uz.icerbersoft.mobilenews.presentation.presentation.home.router.HomeRouter
+import uz.icerbersoft.mobilenews.presentation.support.event.LoadingListEvent.*
 import uz.icerbersoft.mobilenews.presentation.support.moxy.BaseMoxyPresenter
 import javax.inject.Inject
 
@@ -19,16 +19,14 @@ internal class RecommendedArticlesPresenter @Inject constructor(
 
     fun getRecommendedArticles() {
         val disposable = useCase.getRecommendedArticles()
-            .doOnSubscribe { viewState.onSuccessArticles(listOf(LoadingItem)) }
+            .doOnSubscribe { viewState.onSuccessArticles(LoadingState) }
             .subscribe(
                 { value ->
-                    if (value.articles.isNotEmpty()) {
-                        val articleItems = value.articles.map { ArticleItem(it) }
-                        viewState.onSuccessArticles(articleItems)
-                    } else
-                        viewState.onSuccessArticles(listOf(EmptyItem))
+                    if (value.articles.isNotEmpty())
+                        viewState.onSuccessArticles(SuccessState(value.articles))
+                    else viewState.onSuccessArticles(EmptyState)
                 },
-                { viewState.onSuccessArticles(listOf(ErrorItem)) }
+                { viewState.onSuccessArticles(ErrorState(it.localizedMessage)) }
             )
 
         compositeDisposable.add(disposable)

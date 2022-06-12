@@ -10,6 +10,8 @@ import uz.icerbersoft.mobilenews.R
 import uz.icerbersoft.mobilenews.databinding.FragmentArticleDetailBinding
 import uz.icerbersoft.mobilenews.domain.data.entity.article.Article
 import uz.icerbersoft.mobilenews.presentation.global.GlobalActivity
+import uz.icerbersoft.mobilenews.presentation.support.event.LoadingEvent
+import uz.icerbersoft.mobilenews.presentation.support.event.LoadingEvent.*
 
 import uz.icerbersoft.mobilenews.presentation.utils.addCallback
 import javax.inject.Inject
@@ -51,33 +53,41 @@ internal class ArticleDetailFragment : MvpAppCompatFragment(R.layout.fragment_ar
         super.onDestroy()
     }
 
-    override fun onSuccessArticleDetail(article: Article) {
+    override fun onSuccessArticleDetail(event: LoadingEvent<Article>) {
         with(binding) {
-            detailImageSdv.setImageURI(article.imageUrl)
-            publishedAtTextView.text = article.publishedAt
-            titleTextView.text = article.title
-            sourceTextView.text = article.source.name
-            contentTextView.text = article.content
-
-            bookmarkIv.apply {
-                if (article.isBookmarked) setImageResource(R.drawable.ic_bookmark)
-                else setImageResource(R.drawable.ic_bookmark_border)
-            }
-
-            bookmarkIv.setOnClickListener { presenter.updateBookmark(article) }
-
-            shareIv.setOnClickListener {
-                val shareText =
-                    "${article.title}\n\nMobile news - interesting news in your mobile.\n\n${article.url}"
-
-                val sendIntent: Intent = Intent().apply {
-                    action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_TEXT, shareText)
-                    type = "text/plain"
+            when(event){
+                is LoadingState -> {
                 }
+                is SuccessState -> {
+                    detailImageSdv.setImageURI(event.data.imageUrl)
+                    publishedAtTextView.text = event.data.publishedAt
+                    titleTextView.text = event.data.title
+                    sourceTextView.text = event.data.source.name
+                    contentTextView.text = event.data.content
 
-                val shareIntent = Intent.createChooser(sendIntent, "Share")
-                startActivity(shareIntent)
+                    bookmarkIv.apply {
+                        if (event.data.isBookmarked) setImageResource(R.drawable.ic_bookmark)
+                        else setImageResource(R.drawable.ic_bookmark_border)
+                    }
+
+                    bookmarkIv.setOnClickListener { presenter.updateBookmark(event.data) }
+
+                    shareIv.setOnClickListener {
+                        val shareText =
+                            "${event.data.title}\n\nMobile news - interesting news in your mobile.\n\n${event.data.url}"
+
+                        val sendIntent: Intent = Intent().apply {
+                            action = Intent.ACTION_SEND
+                            putExtra(Intent.EXTRA_TEXT, shareText)
+                            type = "text/plain"
+                        }
+
+                        val shareIntent = Intent.createChooser(sendIntent, "Share")
+                        startActivity(shareIntent)
+                    }
+                }
+                is ErrorState -> {
+                }
             }
         }
     }

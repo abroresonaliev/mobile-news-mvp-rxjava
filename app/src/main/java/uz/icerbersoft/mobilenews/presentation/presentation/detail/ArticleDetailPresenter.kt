@@ -3,6 +3,8 @@ package uz.icerbersoft.mobilenews.presentation.presentation.detail
 import uz.icerbersoft.mobilenews.domain.data.entity.article.Article
 import uz.icerbersoft.mobilenews.domain.usecase.article.detail.ArticleDetailUseCase
 import uz.icerbersoft.mobilenews.presentation.presentation.detail.router.ArticleDetailRouter
+import uz.icerbersoft.mobilenews.presentation.support.event.LoadingEvent
+import uz.icerbersoft.mobilenews.presentation.support.event.LoadingEvent.*
 import uz.icerbersoft.mobilenews.presentation.support.moxy.BaseMoxyPresenter
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -23,10 +25,10 @@ class ArticleDetailPresenter @Inject constructor(
 
     fun getArticleDetail() {
         val disposable = useCase.getArticle(currentArticleId)
-            .doOnSubscribe { }
+            .doOnSubscribe { viewState.onSuccessArticleDetail(LoadingState) }
             .subscribe(
-                { viewState.onSuccessArticleDetail(it) },
-                { /*viewState.onFailureArticleDetail(throwable)*/ }
+                { viewState.onSuccessArticleDetail(SuccessState(it)) },
+                { viewState.onSuccessArticleDetail(ErrorState(it.localizedMessage)) }
             )
 
         compositeDisposable.add(disposable)

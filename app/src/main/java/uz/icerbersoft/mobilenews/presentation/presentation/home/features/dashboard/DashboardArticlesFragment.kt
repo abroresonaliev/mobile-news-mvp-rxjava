@@ -10,13 +10,15 @@ import ru.surfstudio.android.easyadapter.ItemList
 import uz.icerbersoft.mobilenews.R
 import uz.icerbersoft.mobilenews.data.utils.date.toFormattedDate
 import uz.icerbersoft.mobilenews.databinding.FragmentDashboardArticlesBinding
-import uz.icerbersoft.mobilenews.domain.data.entity.article.ArticleWrapper
+import uz.icerbersoft.mobilenews.domain.data.entity.article.Article
 import uz.icerbersoft.mobilenews.presentation.global.GlobalActivity
 import uz.icerbersoft.mobilenews.presentation.presentation.home.features.dashboard.controller.BreakingArticleItemController
 import uz.icerbersoft.mobilenews.presentation.presentation.home.features.dashboard.controller.TopArticleItemController
 import uz.icerbersoft.mobilenews.presentation.support.controller.StateEmptyItemController
 import uz.icerbersoft.mobilenews.presentation.support.controller.StateErrorItemController
 import uz.icerbersoft.mobilenews.presentation.support.controller.StateLoadingItemController
+import uz.icerbersoft.mobilenews.presentation.support.event.LoadingListEvent
+import uz.icerbersoft.mobilenews.presentation.support.event.LoadingListEvent.*
 import uz.icerbersoft.mobilenews.presentation.utils.addCallback
 import java.util.*
 import javax.inject.Inject
@@ -83,28 +85,24 @@ internal class DashboardArticlesFragment :
         super.onDestroy()
     }
 
-    override fun onDefinedBreakingArticleWrappers(articles: List<ArticleWrapper>) {
+    override fun onDefinedBreakingArticleWrappers(event: LoadingListEvent<Article>) {
         val itemList = ItemList.create()
-        for (item in articles) {
-            when (item) {
-                is ArticleWrapper.ArticleItem -> itemList.add(item, breakingArticleController)
-                is ArticleWrapper.EmptyItem -> itemList.add(breakingEmptyController)
-                is ArticleWrapper.ErrorItem -> itemList.add(breakingErrorController)
-                is ArticleWrapper.LoadingItem -> itemList.add(breakingLoadingController)
-            }
+        when (event) {
+            is LoadingState -> itemList.add(breakingLoadingController)
+            is SuccessState -> itemList.addAll(event.data, breakingArticleController)
+            is EmptyState -> itemList.add(breakingEmptyController)
+            is ErrorState -> itemList.add(breakingErrorController)
         }
         breakingArticlesAdapter.setItems(itemList)
     }
 
-    override fun onDefinedTopArticleWrappers(articles: List<ArticleWrapper>) {
+    override fun onDefinedTopArticleWrappers(event: LoadingListEvent<Article>) {
         val itemList = ItemList.create()
-        for (item in articles) {
-            when (item) {
-                is ArticleWrapper.ArticleItem -> itemList.add(item, topArticleController)
-                is ArticleWrapper.EmptyItem -> itemList.add(topEmptyController)
-                is ArticleWrapper.ErrorItem -> itemList.add(topErrorController)
-                is ArticleWrapper.LoadingItem -> itemList.add(topLoadingController)
-            }
+        when (event) {
+            is LoadingState -> itemList.add(topLoadingController)
+            is SuccessState -> itemList.addAll(event.data, topArticleController)
+            is EmptyState -> itemList.add(topEmptyController)
+            is ErrorState -> itemList.add(topErrorController)
         }
         topArticlesAdapter.setItems(itemList)
     }

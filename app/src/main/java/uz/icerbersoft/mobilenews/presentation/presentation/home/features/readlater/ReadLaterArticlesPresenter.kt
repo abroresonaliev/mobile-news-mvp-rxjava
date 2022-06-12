@@ -1,11 +1,11 @@
 package uz.icerbersoft.mobilenews.presentation.presentation.home.features.readlater
 
-import io.reactivex.android.schedulers.AndroidSchedulers
 import uz.icerbersoft.mobilenews.domain.data.entity.article.Article
-import uz.icerbersoft.mobilenews.domain.data.entity.article.ArticleWrapper.*
 import uz.icerbersoft.mobilenews.domain.usecase.article.readlater.ReadLaterArticlesUseCase
 import uz.icerbersoft.mobilenews.presentation.global.router.GlobalRouter
 import uz.icerbersoft.mobilenews.presentation.presentation.home.router.HomeRouter
+import uz.icerbersoft.mobilenews.presentation.support.event.LoadingListEvent
+import uz.icerbersoft.mobilenews.presentation.support.event.LoadingListEvent.*
 import uz.icerbersoft.mobilenews.presentation.support.moxy.BaseMoxyPresenter
 import javax.inject.Inject
 
@@ -20,16 +20,16 @@ internal class ReadLaterArticlesPresenter @Inject constructor(
 
     fun getReadLaterArticles() {
         val disposable = useCase.getReadLaterArticles()
-            .doOnSubscribe { viewState.onSuccessArticles(listOf(LoadingItem)) }
+            .doOnSubscribe { viewState.onSuccessArticles(LoadingState) }
             .subscribe(
                 { value ->
                     val wrappers =
-                        if (value.articles.isNotEmpty()) value.articles.map { ArticleItem(it) }
-                        else listOf(EmptyItem)
+                        if (value.articles.isNotEmpty()) SuccessState(value.articles) 
+                        else EmptyState
 
                     viewState.onSuccessArticles(wrappers)
                 },
-                { viewState.onSuccessArticles(listOf(ErrorItem)) }
+                { viewState.onSuccessArticles(ErrorState(it.localizedMessage)) }
             )
 
         compositeDisposable.add(disposable)

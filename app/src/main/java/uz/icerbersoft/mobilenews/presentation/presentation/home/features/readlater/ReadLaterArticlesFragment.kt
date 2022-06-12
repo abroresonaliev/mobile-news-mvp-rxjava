@@ -9,12 +9,14 @@ import ru.surfstudio.android.easyadapter.EasyAdapter
 import ru.surfstudio.android.easyadapter.ItemList
 import uz.icerbersoft.mobilenews.R
 import uz.icerbersoft.mobilenews.databinding.FragmentReadLaterArticlesBinding
-import uz.icerbersoft.mobilenews.domain.data.entity.article.ArticleWrapper
+import uz.icerbersoft.mobilenews.domain.data.entity.article.Article
 import uz.icerbersoft.mobilenews.presentation.global.GlobalActivity
 import uz.icerbersoft.mobilenews.presentation.presentation.home.features.readlater.controller.ReadLaterArticleItemController
 import uz.icerbersoft.mobilenews.presentation.support.controller.StateEmptyItemController
 import uz.icerbersoft.mobilenews.presentation.support.controller.StateErrorItemController
 import uz.icerbersoft.mobilenews.presentation.support.controller.StateLoadingItemController
+import uz.icerbersoft.mobilenews.presentation.support.event.LoadingListEvent
+import uz.icerbersoft.mobilenews.presentation.support.event.LoadingListEvent.*
 import uz.icerbersoft.mobilenews.presentation.utils.addCallback
 import javax.inject.Inject
 
@@ -62,15 +64,13 @@ internal class ReadLaterArticlesFragment :
         super.onDestroy()
     }
 
-    override fun onSuccessArticles(articles: List<ArticleWrapper>) {
+    override fun onSuccessArticles(event: LoadingListEvent<Article>) {
         val itemList = ItemList.create()
-        for (item in articles) {
-            when (item) {
-                is ArticleWrapper.ArticleItem -> itemList.add(item, articleController)
-                is ArticleWrapper.EmptyItem -> itemList.add(stateEmptyItemController)
-                is ArticleWrapper.ErrorItem -> itemList.add(stateErrorController)
-                is ArticleWrapper.LoadingItem -> itemList.add(stateLoadingController)
-            }
+        when (event) {
+            is LoadingState -> itemList.add(stateLoadingController)
+            is SuccessState -> itemList.addAll(event.data, articleController)
+            is EmptyState -> itemList.add(stateEmptyItemController)
+            is ErrorState -> itemList.add(stateErrorController)
         }
         easyAdapter.setItems(itemList)
     }
