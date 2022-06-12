@@ -8,7 +8,7 @@ class GlobalPresenter @Inject constructor(
     private val globalRouter: GlobalRouter
 ) : MvpPresenter<GlobalView>() {
 
-    fun onActivityCreate() {
-         globalRouter.openHomeScreen()
+    override fun onFirstViewAttach() {
+        globalRouter.openHomeScreen()
     }
 }

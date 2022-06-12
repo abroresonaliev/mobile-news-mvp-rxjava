@@ -9,7 +9,7 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
-        applicationId "uz.icebergsoft.mobilenews.app.mvp_rxjava"
+        applicationId "uz.icebergsoft.mobilenews.mvp_rxjava"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
