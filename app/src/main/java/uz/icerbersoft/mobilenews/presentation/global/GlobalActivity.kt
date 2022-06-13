@@ -25,7 +25,7 @@ internal class GlobalActivity : MvpAppCompatActivity(), GlobalView {
     @Inject
     lateinit var cicerone: Cicerone<GlobalRouter>
     private val navigatorHolder: NavigatorHolder by lazy { cicerone.navigatorHolder }
-    private val navigator by lazy { AnimatedCiceroneNavigator(this, binding.frameLayout.id) }
+    private val navigator by lazy { BaseCiceroneNavigator(this, binding.frameLayout.id) }
 
     @Inject
     lateinit var dayNightModeManager: DayNightModeManager
