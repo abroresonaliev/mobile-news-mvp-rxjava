@@ -40,6 +40,11 @@ internal object DomainDaggerModuleUseCase {
         ): DashboardArticlesUseCase
 
         @Binds
+        fun bindDayNightModeUseCase(
+            impl: DayNightModeUseCaseImpl
+        ): DayNightModeUseCase
+
+        @Binds
         fun bindReadLaterArticleListUseCase(
             impl: ReadLaterArticlesUseCaseImpl
         ): ReadLaterArticlesUseCase
@@ -48,11 +53,6 @@ internal object DomainDaggerModuleUseCase {
         fun bindRecommendedArticleListUseCase(
             impl: RecommendedArticlesUseCaseImpl
         ): RecommendedArticlesUseCase
-
-        @Binds
-        fun bindDayNightModeUseCase(
-            impl: DayNightModeUseCaseImpl
-        ): DayNightModeUseCase
     }
 
     @Module

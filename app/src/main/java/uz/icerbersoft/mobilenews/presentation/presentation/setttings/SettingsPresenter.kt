@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import moxy.MvpPresenter
 import moxy.presenterScope
-import uz.icerbersoft.mobilenews.domain.data.entity.settings.DayNightMode
 import uz.icerbersoft.mobilenews.domain.data.entity.settings.DayNightModeWrapper
 import uz.icerbersoft.mobilenews.domain.usecase.daynight.DayNightModeUseCase
 import uz.icerbersoft.mobilenews.presentation.presentation.setttings.router.SettingsRouter
@@ -22,9 +21,9 @@ class SettingsPresenter @Inject constructor(
     private val dayNightModeWrappers: MutableList<DayNightModeWrapper> = mutableListOf()
 
     override fun onFirstViewAttach() =
-        getArticleDetail()
+        getAvailableSettings()
 
-    private fun getArticleDetail() {
+    fun getAvailableSettings() {
         useCase.getDayNightModWrappers()
             .onStart { viewState.onDefinedDayNightModeWrappers(LoadingState) }
             .onEach {

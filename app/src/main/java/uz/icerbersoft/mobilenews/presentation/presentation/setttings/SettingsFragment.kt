@@ -38,7 +38,9 @@ internal class SettingsFragment : MvpAppCompatFragment(R.layout.fragment_setting
     }
     private val stateLoadingController = StateLoadingItemController(isFullScreen = true)
     private val stateEmptyController = StateEmptyItemController(isFullScreen = true)
-    private val stateErrorController = StateErrorItemController(isFullScreen = true) {}
+    private val stateErrorController = StateErrorItemController(isFullScreen = true) {
+        presenter.getAvailableSettings()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (requireActivity() as GlobalActivity)
