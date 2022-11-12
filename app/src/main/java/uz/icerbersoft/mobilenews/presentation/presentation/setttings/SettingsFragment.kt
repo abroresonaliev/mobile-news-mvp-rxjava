@@ -62,6 +62,12 @@ internal class SettingsFragment : MvpAppCompatFragment(R.layout.fragment_setting
         }
     }
 
+    override fun onDestroy() {
+        presenter.clearPresenter()
+
+        super.onDestroy()
+    }
+
     override fun onDefinedDayNightModeWrappers(event: LoadingListEvent<DayNightModeWrapper>) {
         val itemList = ItemList.create()
         when (event) {

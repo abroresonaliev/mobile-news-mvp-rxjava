@@ -1,7 +1,6 @@
 package uz.icerbersoft.mobilenews.data.datasource.rest.service
 
 import io.reactivex.Observable
-import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
 import retrofit2.http.Query
 import uz.icerbersoft.mobilenews.domain.data.entity.article.ArticleListResponse
